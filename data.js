@@ -18,5 +18,23 @@ export const IP_TYPES = [
     definition:
       'Protects creative work such as songs, books, films, drawings and computer code.',
     example: 'Your favourite song is copyrighted, so others cannot copy and sell it.',
+  },
+{
+    id: 'trademark',
+    emoji: '™️',
+    title: 'Trademark',
+    color: '#FFB3BA',
+    definition:
+      'Protects a brand name, logo or slogan that tells you who made a product.',
+    example: 'The Nike tick and the name "Amul" are trademarks.',
+  },
+{
+    id: 'design',
+    emoji: '🎨',
+    title: 'Industrial Design',
+    color: '#BAE1FF',
+    definition:
+      'Protects the shape, pattern or look of a product, not how it works.',
+    example: 'The special curvy shape of a Coca-Cola bottle is a protected design.',
   }
 ];
