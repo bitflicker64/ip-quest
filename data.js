@@ -36,5 +36,23 @@ export const IP_TYPES = [
     definition:
       'Protects the shape, pattern or look of a product, not how it works.',
     example: 'The special curvy shape of a Coca-Cola bottle is a protected design.',
+  },
+{
+    id: 'gi',
+    emoji: '🗺️',
+    title: 'Geographical Indication',
+    color: '#D7BDE2',
+    definition:
+      'Shows that a product comes from a certain place and has qualities linked to that place.',
+    example: 'Only tea grown in Darjeeling can be sold as "Darjeeling Tea".',
+  },
+{
+    id: 'secret',
+    emoji: '🔒',
+    title: 'Trade Secret',
+    color: '#FFD8B1',
+    definition:
+      'Secret business information, like a recipe or method, that a company keeps hidden.',
+    example: 'The secret recipe of a famous cola drink is a trade secret.',
   }
 ];
