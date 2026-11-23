@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { IP_TYPES, QUESTIONS } from './data';
 
+// Simple screen switch instead of a navigation library:
+// 'home' | 'learn' | 'quiz' | 'result'
 export default function App() {
   const [screen, setScreen] = useState('home');
   const [score, setScore] = useState(0);
@@ -21,9 +23,12 @@ export default function App() {
         <QuizScreen
           score={score}
           onCorrect={() => setScore((s) => s + 1)}
-          onFinish={() => setScreen('home')}
+          onFinish={() => setScreen('result')}
           onQuit={() => setScreen('home')}
         />
+      )}
+      {screen === 'result' && (
+        <ResultScreen score={score} onPlayAgain={startQuiz} onHome={() => setScreen('home')} />
       )}
     </View>
   );
@@ -132,12 +137,36 @@ function QuizScreen({ score, onCorrect, onFinish, onQuit }) {
             {picked === q.answer ? '✅ Correct!' : '❌ Not quite'}
           </Text>
           <Text style={styles.feedbackText}>{q.explanation}</Text>
-          <BigButton label={isLast ? 'Back to Home' : 'Next ➡'} onPress={next} />
+          <BigButton label={isLast ? 'See my score' : 'Next ➡'} onPress={next} />
         </View>
       )}
 
       <BigButton label="Quit to Home" onPress={onQuit} color="#E0E0E0" textColor="#333" />
     </ScrollView>
+  );
+}
+
+function ResultScreen({ score, onPlayAgain, onHome }) {
+  const total = QUESTIONS.length;
+  let message;
+  if (score === total) message = 'Perfect! You are an IP Champion! 🥇';
+  else if (score >= total * 0.7) message = 'Great job! You know your IP well. 🎉';
+  else if (score >= total * 0.4) message = 'Good try! Read the Learn cards and play again. 👍';
+  else message = 'Keep learning! Check the Learn cards and try again. 💪';
+
+  return (
+    <View style={[styles.screen, styles.center]}>
+      <Text style={styles.logo}>🎯</Text>
+      <Text style={styles.title}>Your Score</Text>
+      <Text style={styles.bigScore}>
+        {score} / {total}
+      </Text>
+      <Text style={styles.tagline}>{message}</Text>
+      <View style={styles.buttonGroup}>
+        <BigButton label="🔁  Play again" onPress={onPlayAgain} />
+        <BigButton label="🏠  Home" onPress={onHome} color="#2EC4B6" />
+      </View>
+    </View>
   );
 }
 
@@ -187,4 +216,5 @@ const styles = StyleSheet.create({
   feedback: { backgroundColor: '#FFFFFF', borderRadius: 16, padding: 16, marginVertical: 8 },
   feedbackTitle: { fontSize: 22, fontWeight: '800', marginBottom: 6 },
   feedbackText: { fontSize: 16, color: '#444', lineHeight: 22, marginBottom: 8 },
+  bigScore: { fontSize: 64, fontWeight: '900', color: '#5B5FEF' },
 });
